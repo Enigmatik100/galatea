@@ -1,6 +1,7 @@
 package com.example.projet_ni;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,21 +17,25 @@ public class MainActivity extends AppCompatActivity {
     int score;
     int responseIndex= -1;
     int numQuestion=0;
+    SwipeManager swipeLeft;
+    ConstraintLayout clQuiz;
+    TextView feedBackTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextView questionTV = (TextView) findViewById(R.id.questionTV);
+        feedBackTV= (TextView) findViewById(R.id.fdbckTV);
         validButton= (Button) findViewById(R.id.validButon);
         answerGroup= (RadioGroup) findViewById(R.id.answer_group);
-
+        clQuiz= (ConstraintLayout) findViewById(R.id.clQuiz);
         answerGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
                 View answerButton = answerGroup.findViewById(checkedId);
                 responseIndex = answerGroup.indexOfChild(answerButton);
+                System.out.println(responseIndex);
             }
         });
         validButton.setOnClickListener(new View.OnClickListener() {
@@ -39,22 +44,19 @@ public class MainActivity extends AppCompatActivity {
                 if (responseIndex != -1) {
                     numQuestion++;
                     if (responseIndex == 0) {
-                        System.out.println("Succes");
+                        feedBackTV.setText("Bonne Réponse");
                         score++;
                     } else {
-                        System.out.println("Not Good");
+                        feedBackTV.setText("Mauvaise Réponse");
                     }
-                    int count = answerGroup.getChildCount();
-                    for (int i=0;i<count;i++) {
-                        RadioButton rdButton = (RadioButton) answerGroup.getChildAt(i);
-                        rdButton.setChecked(false);
-                    }
+                    answerGroup.clearCheck();
+                    swipeLeft = new SwipeManager(clQuiz);
+                    swipeLeft.setSwipeOrientation("left");
                     responseIndex= -1;
                     if (numQuestion >= 5) {
                         Intent intentScore = new Intent(MainActivity.this, ScoreActivity.class);
+                        intentScore.putExtra("SCORE", score);
                         startActivity(intentScore);
-                        //intentScore.putExtra("SCORE", score);
-                        //startActivity(intentScore);
                     }
                 }
             }

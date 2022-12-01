@@ -33,13 +33,13 @@ public class SwipeManager extends AppCompatActivity {
                         if (Math.abs(xDiff) > seuil && Math.abs(velocityX) > velocite_seuil){               //Gestion de la vitesse et distance du Swipe pour éviter l'activation accidentelle
                             if (xDiff < 0 && orientation == "left"){                                                //Gestion du Swipe LEFT pour changer d'Activity  || Si on a fixé l'orientation à 'left'
                                 Toast.makeText(mainContext, "Accès à la Page Web", Toast.LENGTH_SHORT).show();
-                                Intent intent_SLCam = new Intent(mainContext, WebActivity.class);    //Intent pour aller à l'Activité de la Cam
-                                mainContext.startActivity(intent_SLCam);                                //Syntaxe Adaptative pour fonctionner dans tous les cas
+                                Intent webIntent = new Intent(mainContext, WebActivity.class);    //Intent pour aller à l'Activité de la Cam
+                                mainContext.startActivity(webIntent);                                //Syntaxe Adaptative pour fonctionner dans tous les cas
                             }
                             else if (xDiff > 0 && orientation == "right"){                                          //Gestion du Swipe RIGHT pour changer d'Activity  || Si on a fixé l'orientation à 'right'
                                 Toast.makeText(mainContext, "Retour à la Question", Toast.LENGTH_SHORT).show();
-                                Intent intent_Tuto = new Intent(mainContext, MainActivity.class);       //Intent pour aller à l'Activité de la Cam
-                                mainContext.startActivity(intent_Tuto);                                 //Syntaxe Adaptative pour fonctionner dans tous les cas
+                                Intent quizzIntent = new Intent(mainContext, MainActivity.class);       //Intent pour aller à l'Activité de la Cam
+                                mainContext.startActivity(quizzIntent);                                 //Syntaxe Adaptative pour fonctionner dans tous les cas
                             }
                             else
 
