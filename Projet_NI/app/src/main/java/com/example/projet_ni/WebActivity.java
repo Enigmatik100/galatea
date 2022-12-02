@@ -6,9 +6,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.os.Bundle;
 import android.webkit.WebView;
 
+import java.util.ArrayList;
+
 public class WebActivity extends AppCompatActivity {
     WebView webView;
     SwipeManager swipeManager;
+    ArrayList<Integer> dataReceived= new ArrayList<>();
+    int score= 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,9 +23,12 @@ public class WebActivity extends AppCompatActivity {
             String link= dataReceiver.getString("LINK");
             webView= (WebView) findViewById(R.id.webView);
             webView.getSettings().setJavaScriptEnabled(true);
+            Bundle bundle= getIntent().getBundleExtra("BUNDLE");
+            dataReceived= (ArrayList<Integer>) bundle.getSerializable("ARRAYLIST");
             webView.loadUrl(link);
         }
         swipeManager = new SwipeManager(webView);
+        swipeManager.setDataToSend(dataReceived);
         swipeManager.setSwipeOrientation("right");
     }
 }

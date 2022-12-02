@@ -2,6 +2,7 @@ package com.example.projet_ni;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -10,9 +11,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class SwipeManager extends AppCompatActivity {
     String orientation = "";
     String link= "";
+    ArrayList<Integer> dataToSend= new ArrayList<>();
     SwipeManager(View v){       //Constructeur
         int seuil = 100;            //Valeurs de la Distance minimale du swipe
         int velocite_seuil = 100;    //Seuil de vitesse du Swipe
@@ -38,11 +44,21 @@ public class SwipeManager extends AppCompatActivity {
                                 if (!link.equals("")) {
                                     webIntent.putExtra("LINK", link);
                                 }
+                                if (dataToSend.size() != 0) {
+                                    Bundle bundle= new Bundle();
+                                    bundle.putSerializable("ARRAYLIST", (Serializable) dataToSend);
+                                    webIntent.putExtra("BUNDLE", bundle);
+                                }
                                 mainContext.startActivity(webIntent);                                //Syntaxe Adaptative pour fonctionner dans tous les cas
                             }
                             else if (xDiff > 0 && orientation == "right"){                                          //Gestion du Swipe RIGHT pour changer d'Activity  || Si on a fixé l'orientation à 'right'
                                 Toast.makeText(mainContext, "Retour à la Question", Toast.LENGTH_SHORT).show();
                                 Intent quizzIntent = new Intent(mainContext, MainActivity.class);       //Intent pour aller à l'Activité de la Cam
+                                if (dataToSend.size() != 0) {
+                                    Bundle bundle= new Bundle();
+                                    bundle.putSerializable("ARRAYLIST", (Serializable) dataToSend);
+                                    quizzIntent.putExtra("BUNDLE", bundle);
+                                }
                                 mainContext.startActivity(quizzIntent);                                 //Syntaxe Adaptative pour fonctionner dans tous les cas
                             }
                             else
@@ -73,4 +89,7 @@ public class SwipeManager extends AppCompatActivity {
         this.link= url;
     }
 
+    public void setDataToSend(ArrayList<Integer> targetData) {
+        dataToSend= targetData;
+    }
 }

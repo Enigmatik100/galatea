@@ -53,7 +53,7 @@
                 app:layout_constraintGuide_percent="0.925" />
 
             <TextView
-                android:id="@+id/questionTV"
+                android:id="@+id/scoreTV"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"

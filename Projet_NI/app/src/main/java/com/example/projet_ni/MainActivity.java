@@ -5,7 +5,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,6 +14,7 @@ import  android.view.View;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,16 +33,31 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ArrayList<String>> responsesBank= new ArrayList<>();
     ArrayList<String> linkList= new ArrayList<>();
     ArrayList<RadioButton> rdButtonArray= new ArrayList<>();
+    ArrayList<Integer> dataReceived= new ArrayList<>(Arrays.asList(-1, -1));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        questionTV = (TextView) findViewById(R.id.questionTV);
+        questionTV = (TextView) findViewById(R.id.scoreTV);
         feedBackTV= (TextView) findViewById(R.id.fdbckTV);
         validButton= (Button) findViewById(R.id.validButon);
         answerGroup= (RadioGroup) findViewById(R.id.answer_group);
         clQuiz= (ConstraintLayout) findViewById(R.id.clQuiz);
         nextQuestionButton= (Button) findViewById(R.id.nextQuestionButton);
+        Bundle dataReceiver= getIntent().getExtras();
+        Bundle bundle= getIntent().getBundleExtra("BUNDLE");
+        if (dataReceiver != null) {
+            score= dataReceiver.getInt("SCORE");
+        }
+        if (bundle != null) {
+            dataReceived= (ArrayList<Integer>) bundle.getSerializable("ARRAYLIST");
+            score= dataReceived.get(0);
+            numQuestion= dataReceived.get(1);
+            System.out.print("SCORE= ");
+            System.out.println(score);
+            System.out.print("NUM QUESTION= ");
+            System.out.println(numQuestion);
+        }
         try {
             System.out.println("TEST");
             txtReader = getAssets().open("Question_App_NI.txt");
@@ -74,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             // Exception
             e.printStackTrace();
         }
-        displayQuestion(0);
+        displayQuestion(numQuestion);
         answerGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -95,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     answerGroup.clearCheck();
                     swipeLeft = new SwipeManager(clQuiz);
+                    dataReceived.set(0, score);
+                    dataReceived.set(1, numQuestion);
+                    swipeLeft.setDataToSend(dataReceived);
                     swipeLeft.setURLToOpen(linkList.get(numQuestion-1));
                     swipeLeft.setSwipeOrientation("left");
                     responseIndex= -1;

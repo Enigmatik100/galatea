@@ -8,17 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.Context;
-import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class ScoreActivity extends AppCompatActivity {
     int score= -1;
+    ArrayList<Integer> dataReceived= new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
-        Bundle dataReceiver= getIntent().getExtras();
         TextView scoreTV= (TextView) findViewById(R.id.scoreTV);
         Button returnButton= (Button) findViewById(R.id.returnButton);
+        Bundle dataReceiver= getIntent().getExtras();
         if (dataReceiver != null) {
             score= dataReceiver.getInt("SCORE");
         }
