@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SwipeManager extends AppCompatActivity {
     String orientation = "";
+    String link= "";
     SwipeManager(View v){       //Constructeur
         int seuil = 100;            //Valeurs de la Distance minimale du swipe
         int velocite_seuil = 100;    //Seuil de vitesse du Swipe
@@ -34,6 +35,9 @@ public class SwipeManager extends AppCompatActivity {
                             if (xDiff < 0 && orientation == "left"){                                                //Gestion du Swipe LEFT pour changer d'Activity  || Si on a fixé l'orientation à 'left'
                                 Toast.makeText(mainContext, "Accès à la Page Web", Toast.LENGTH_SHORT).show();
                                 Intent webIntent = new Intent(mainContext, WebActivity.class);    //Intent pour aller à l'Activité de la Cam
+                                if (!link.equals("")) {
+                                    webIntent.putExtra("LINK", link);
+                                }
                                 mainContext.startActivity(webIntent);                                //Syntaxe Adaptative pour fonctionner dans tous les cas
                             }
                             else if (xDiff > 0 && orientation == "right"){                                          //Gestion du Swipe RIGHT pour changer d'Activity  || Si on a fixé l'orientation à 'right'
@@ -63,6 +67,10 @@ public class SwipeManager extends AppCompatActivity {
 
     public void setSwipeOrientation(String orientation){        //Choix de la Direction du Swipe
         this.orientation = orientation;
+    }
+
+    public void setURLToOpen(String url) {
+        this.link= url;
     }
 
 }

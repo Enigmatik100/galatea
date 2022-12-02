@@ -14,9 +14,13 @@ public class WebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         ConstraintLayout clWeb= (ConstraintLayout) findViewById(R.id.clWeb);
-        webView= (WebView) findViewById(R.id.webView);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.google.com");
+        Bundle dataReceiver= getIntent().getExtras();
+        if (dataReceiver != null) {
+            String link= dataReceiver.getString("LINK");
+            webView= (WebView) findViewById(R.id.webView);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.loadUrl(link);
+        }
         swipeManager = new SwipeManager(webView);
         swipeManager.setSwipeOrientation("right");
     }

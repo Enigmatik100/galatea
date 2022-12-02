@@ -56,7 +56,10 @@
                 android:id="@+id/questionTV"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:gravity="center"
                 android:text="QUESTION AU PIFF"
+                android:textColor="#000000"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline8"
                 app:layout_constraintEnd_toStartOf="@+id/guideline10"
                 app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -116,54 +119,47 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline13"
                 app:layout_constraintTop_toTopOf="@+id/guideline11">
 
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <Button
+                        android:id="@+id/validButon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Valider"
+                        app:backgroundTint="#C59C73" />
+
+                    <Button
+                        android:id="@+id/nextQuestionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Suivant"
+                        android:textColor="#FFFFFF"
+                        android:textColorHighlight="#000000"
+                        android:textColorHint="#000000"
+                        app:backgroundTint="#C59C73"
+                        app:iconTint="#000000" />
+                </LinearLayout>
+
                 <RadioGroup
                     android:id="@+id/answer_group"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/validButon"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <RadioButton
-                        android:id="@+id/radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:maxHeight="20dp"
-                        android:text="Reponse1"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:text="Reponse2"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton3"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:text="Reponse3"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton4"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:text="Reponse4"
-                        android:textSize="12sp" />
                 </RadioGroup>
 
-                <Button
-                    android:id="@+id/validButon"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Valider la Réponse"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.496"
-                    app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -218,6 +214,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
